@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TTT",
+    "name": "TicTacToe",
     "slug": "TTT",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -24,7 +24,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.matthewlee626.TicTacToe"
+    },
+    "android": {
+      "package": "com.matthewlee626.TicTacToe"
+    },
+    "description": "A basic tic-tac-toe app.",
+    "githubUrl": "https://github.com/matthewlee626/TTT"
   }
 }

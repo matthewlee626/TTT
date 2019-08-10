@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Button,
   Linking,
+  StatusBar,
 } from 'react-native'
 
 let DeviceWidth = Dimensions.get('window').width
@@ -85,7 +86,7 @@ export default class App extends React.Component {
         {
           position: 1,
           value: null,
-          style: { marginBottom: 2 },
+          style: { marginBottom: 2, borderBottomColor: 'black'},
           addMove: this.addMove.bind(this),
         },
         {
@@ -221,6 +222,7 @@ export default class App extends React.Component {
     this.resetBoard()
     this.setState({
       allowMove: true,
+      nextTurn: 'X',
       gameState: 'play',
       winner: null,
       moveCount: 0,
@@ -231,16 +233,20 @@ export default class App extends React.Component {
     return (
       <View>
         <Text style={[styles.text, { marginVertical: 30 }]}>Tic Tac Toe</Text>
-        <Button
-          title="Start"
-          color="white"
-          onPress={() => this.setState({ mode: 'single', gameState: 'play' })}
-        />
-        <Button
-          title="About"
-          color="white"
-          onPress={() => this.setState({ gameState: 'about'})}
-        />
+        <View style={styles.button}>
+          <Button
+            title="Start"
+            color="black"
+            onPress={() => this.setState({ mode: 'single', gameState: 'play' })}
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            title="About"
+            color="black"
+            onPress={() => this.setState({ gameState: 'about'})}
+          />
+        </View>
       </View>
     )
   }
@@ -249,15 +255,39 @@ export default class App extends React.Component {
     return (
       <View>
         <Text
-          style={[{marginVertical: 30, textAlign: 'center', color: 'white'}]}
+          style={[{marginVertical: 30, textAlign: 'center', color: 'black'}]}
         >
           This app was made by Matthew Lee as a proof of concept. Visit my website below for more!
         </Text>
-        <Button
-            title="matthewlee.xyz"
-            onPress={ ()=>{ Linking.openURL('https://matthewlee.xyz')}}
-            color="white"
-        />
+        <View style={styles.button}>
+          <Button
+              title="matthewlee.xyz"
+              onPress={ ()=>{ Linking.openURL('https://matthewlee.xyz')}}
+              color="black"
+          />
+        </View>
+      </View>
+    )
+  }
+
+  returnGrid() {
+    return (
+      <View style={styles.grid}>
+        <View>
+          <GridItem state={this.state.gridData[0]} index={0} />
+          <GridItem state={this.state.gridData[1]} index={1} />
+          <GridItem state={this.state.gridData[2]} index={2} />
+        </View>
+        <View>
+          <GridItem state={this.state.gridData[3]} index={3} />
+          <GridItem state={this.state.gridData[4]} index={4} />
+          <GridItem state={this.state.gridData[5]} index={5} />
+        </View>
+        <View>
+          <GridItem state={this.state.gridData[6]} index={6} />
+          <GridItem state={this.state.gridData[7]} index={7} />
+          <GridItem state={this.state.gridData[8]} index={8} />
+        </View>
       </View>
     )
   }
@@ -268,23 +298,7 @@ export default class App extends React.Component {
         <Text style={[styles.text, { marginVertical: 30 }]}>
           Next Turn: {this.state.nextTurn}
         </Text>
-        <View style={styles.grid}>
-          <View>
-            <GridItem state={this.state.gridData[0]} index={0} />
-            <GridItem state={this.state.gridData[1]} index={1} />
-            <GridItem state={this.state.gridData[2]} index={2} />
-          </View>
-          <View>
-            <GridItem state={this.state.gridData[3]} index={3} />
-            <GridItem state={this.state.gridData[4]} index={4} />
-            <GridItem state={this.state.gridData[5]} index={5} />
-          </View>
-          <View>
-            <GridItem state={this.state.gridData[6]} index={6} />
-            <GridItem state={this.state.gridData[7]} index={7} />
-            <GridItem state={this.state.gridData[8]} index={8} />
-          </View>
-        </View>
+        {this.returnGrid()}
       </View>
     )
   }
@@ -295,23 +309,7 @@ export default class App extends React.Component {
         <Text style={[styles.text, { marginVertical: 30 }]}>
           {this.state.winner} wins!
         </Text>
-        <View style={styles.grid}>
-          <View>
-            <GridItem state={this.state.gridData[0]} index={0} />
-            <GridItem state={this.state.gridData[1]} index={1} />
-            <GridItem state={this.state.gridData[2]} index={2} />
-          </View>
-          <View>
-            <GridItem state={this.state.gridData[3]} index={3} />
-            <GridItem state={this.state.gridData[4]} index={4} />
-            <GridItem state={this.state.gridData[5]} index={5} />
-          </View>
-          <View>
-            <GridItem state={this.state.gridData[6]} index={6} />
-            <GridItem state={this.state.gridData[7]} index={7} />
-            <GridItem state={this.state.gridData[8]} index={8} />
-          </View>
-        </View>
+        {this.returnGrid()}
       </View>
     )
   }
@@ -322,23 +320,7 @@ export default class App extends React.Component {
         <Text style={[styles.text, { marginVertical: 30 }]}>
           Draw!
         </Text>
-        <View style={styles.grid}>
-          <View>
-            <GridItem state={this.state.gridData[0]} index={0} />
-            <GridItem state={this.state.gridData[1]} index={1} />
-            <GridItem state={this.state.gridData[2]} index={2} />
-          </View>
-          <View>
-            <GridItem state={this.state.gridData[3]} index={3} />
-            <GridItem state={this.state.gridData[4]} index={4} />
-            <GridItem state={this.state.gridData[5]} index={5} />
-          </View>
-          <View>
-            <GridItem state={this.state.gridData[6]} index={6} />
-            <GridItem state={this.state.gridData[7]} index={7} />
-            <GridItem state={this.state.gridData[8]} index={8} />
-          </View>
-        </View>
+        {this.returnGrid()}
       </View>
     )
   }
@@ -346,6 +328,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
         {this.state.gameState === 'intro' && this.renderIntro()}
         {this.state.gameState === 'about' && this.renderAbout()}
         {this.state.gameState === 'play' && this.renderBoard()}
@@ -355,16 +338,16 @@ export default class App extends React.Component {
           <View style={styles.button}>
             <Button
               title="Restart Game"
-              color="white"
+              color="black"
               onPress={() => this.restartGame()}
             />
           </View>
         )}
         {this.state.gameState !== 'intro' && (
-            <View style={styles.button}>
+          <View style={styles.button}>
             <Button
               title="Back"
-              color="white"
+              color="black"
               onPress={() => this.setState({gameState: 'intro'})}
             />
           </View>
@@ -395,29 +378,26 @@ class GridItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
   grid: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
   },
   item: {
     width: DeviceWidth * 0.3,
     height: DeviceWidth * 0.3,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     justifyContent: 'center',
   },
   text: {
-    color: 'white',
+    color: 'black',
     alignSelf: 'center',
     fontSize: 40,
   },
   button: {
     marginVertical: 25,
-  },
-  a: {
-   color: 'white',
   },
 })
